@@ -3,7 +3,7 @@ import { useSession, signIn, signOut, getSession } from "next-auth/react";
 
 export default function Home() {
   const { data: session } = useSession();
-  console.log("🚀 ~ file: index.tsx:5 ~ Home ~ session:", session);
+  // console.log("🚀 ~ file: index.tsx:5 ~ Home ~ session:", session);
 
   return (
     <>
