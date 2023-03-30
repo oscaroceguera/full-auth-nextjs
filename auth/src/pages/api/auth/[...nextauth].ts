@@ -22,4 +22,33 @@ export default NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({
+      token,
+      user,
+      account,
+      profile,
+      isNewUser,
+    }: {
+      token: JWT;
+      user?: User | Adapter | undefined;
+      account?: Account | null | undefined;
+      profile?: Profile | undefined;
+      isNewUser?: boolean | undefined;
+    }) {
+      if (user) {
+        token.provider = account?.provider;
+      }
+      return token;
+    },
+    async session({ session, token }: { session: any; token: JWT }) {
+      if (session.user) {
+        session.user.provider = token.provider;
+      }
+      return session;
+    },
+  },
 });
